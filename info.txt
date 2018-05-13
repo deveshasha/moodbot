@@ -1,0 +1,5 @@
+1)	To suppress deprecation warnings Add to C:\Users\DeveshSingh\AppData\Local\Programs\Python\Python36\Lib\site-packages\sklearn\preprocessing\labels.py
+	import warnings
+	warnings.filterwarnings("ignore", category=DeprecationWarning)
+
+2)	python -m rasa_core.run -d rasa/models/dialogue -u rasa/models/nlu/default/current
