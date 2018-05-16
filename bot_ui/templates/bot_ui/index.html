@@ -21,14 +21,21 @@
 	<body>
 		<div id="live-chat">
 			<header class="clearfix">	<a href="#" class="chat-close">x</a>
-				<h4>John Doe</h4>
+				<h4>STRAPBOT Help</h4>
 				<span class="chat-message-counter">3</span>
 			</header>
 			<div class="chat">
 				<div class="chat-history">
 					
-					{{ html_ }}
-					
+				{% for input in all_inputs %}
+					<div class="chat-message clearfix">
+			 			<div class="chat-message-content clearfix">	<span class="chat-time">13:37</span>
+			 				<h5> You </h5>
+			 				<p>  {{ input }} </p>
+			 			</div>
+			 			<!-- end chat-message-content -->
+			 		</div>
+				{% endfor %}
 				</div>
 				<!-- end chat-history -->
 				<!-- <p class="chat-feedback">Your partner is typing…</p> -->
