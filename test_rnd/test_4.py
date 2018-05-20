@@ -16,13 +16,14 @@ def getOutput(outQueue):
 		while True: #Adds output from the Queue until it is empty
 			outStr+=outQueue.get_nowait()
 	except Empty:
+		print (outQueue)
 		return outStr
 
-p = subprocess.Popen('python test_3.py', 
+p = subprocess.Popen('cmd', 
 					stdin=subprocess.PIPE, 
 					stdout=subprocess.PIPE, 
 					stderr=subprocess.PIPE, 
-					shell=True, 
+					shell=False, 
 					universal_newlines=True,
 					)
 
@@ -38,14 +39,14 @@ errThread.daemon = True
 outThread.start()
 errThread.start()
 
-someInput = ""
+errors = getOutput(errQueue)
+output = getOutput(outQueue)
+print("Errors: ", errors)
+print("Output: " + output + "\n")
+# someInput = ""
 
-while someInput != "stop":
-	someInput = input("Input: ")
-	p.stdin.write(someInput)
-	#p.stdin.flush()
-	errors = getOutput(errQueue)
-	output = getOutput(outQueue)
-	print("Errors: ", errors)
-	print("Output: " + output + "\n")
-	p.stdout.flush()
+# while someInput != "stop":
+# 	someInput = input("Input: ")
+# 	p.stdin.write(someInput)
+# 	p.stdin.flush()
+# 	p.stdout.flush()
