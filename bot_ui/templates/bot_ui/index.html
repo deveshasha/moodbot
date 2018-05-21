@@ -26,16 +26,15 @@
 			</header>
 			<div class="chat">
 				<div class="chat-history">
-					
-				{% for input in all_inputs %}
 					<div class="chat-message clearfix">
+			 			{% if user_input %}
 			 			<div class="chat-message-content clearfix">	<span class="chat-time">13:37</span>
 			 				<h5> You </h5>
-			 				<p>  {{ input }} </p>
+			 				<p>  {{ user_input }} </p>
 			 			</div>
+			 			{% endif %}
 			 			<!-- end chat-message-content -->
 			 		</div>
-				{% endfor %}
 				</div>
 				<!-- end chat-history -->
 				<!-- <p class="chat-feedback">Your partner is typing…</p> -->

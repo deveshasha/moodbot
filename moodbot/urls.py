@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', bot_ui_views.index ),
     path('chat/', bot_ui_views.get_input , name='chat'),
+    path('rasa_train/', bot_ui_views.rasa_train ),
 ]
