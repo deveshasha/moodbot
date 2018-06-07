@@ -26,7 +26,7 @@
 			</header>
 			<div class="chat">
 				<div class="chat-history">
-					<div class="chat-message clearfix">
+					<div class="chat-message clearfix" id="message_container">
 			 			{% if user_input %}
 			 			<div class="chat-message-content clearfix">	<span class="chat-time">13:37</span>
 			 				<h5> You </h5>
@@ -45,10 +45,10 @@
 				</div>
 				<!-- end chat-history -->
 				<!-- <p class="chat-feedback">Your partner is typing…</p> -->
-				<form action="{% url 'chat' %}" method="post">
+				<form action="{% url 'chat' %}" method="post" id = "chatForm">
 					{% csrf_token %}
 					<fieldset>
-						<input type="text" placeholder="Type your message…" autofocus name="input_text">
+						<input type="text" placeholder="Type your message…" autofocus name="user_input" id="user_input">
 						<!-- <input type="hidden"> -->
 					</fieldset>
 				</form>
@@ -61,6 +61,28 @@
 
 	</html>
 	<script src="{% static 'js/index.js' %}"></script>
+
+	<script type="text/javascript">
+		
+		$(document).on('submit','#chatForm',function (e) {
+			e.preventDefault();
+
+			$.ajax({
+				type:'POST',
+				url:'/chat/',
+				data:{
+					user_input:$('#user_input').val(),
+					csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+				},
+
+				success:function(response){
+					$("#message_container").append(response.user_input);
+					$("#message_container").append(response.bot_response);
+				}
+			})
+		});
+
+	</script>
 </body>
 
 </html>

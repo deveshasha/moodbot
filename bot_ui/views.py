@@ -1,5 +1,5 @@
 import os
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 from .forms import ChatForm
@@ -20,12 +20,15 @@ def index(request):
 def get_input(request):
 	if request.method == 'POST':
 		form = ChatForm(request.POST)
-		if form.is_valid():
-			user_input = request.POST.get('input_text')
-			#agent = Agent.load(os.path.join(BASE_DIR, 'rasa/models/dialogue') , interpreter = os.path.join(BASE_DIR, 'rasa/models/nlu/default/current'))
-			bot_response = agent.handle_message('hello')
-			print("bot_response:" + bot_response[0])
-			return render(request, 'bot_ui/index.html', {'user_input':user_input,'bot_response':bot_response[0]})
+		print("##### inside post")
+		#if form.is_valid():
+		print("##### inside form valid")
+		user_input = request.POST.get('user_input')
+		bot_response = agent.handle_message(user_input)
+		print("bot_response:" + bot_response[0])
+
+		return JsonResponse({'user_input':user_input,'bot_response':bot_response})
+			#return render(request, 'bot_ui/index.html', {'user_input':user_input,'bot_response':bot_response[0]})
 	else:
 		form = ChatForm()
 
